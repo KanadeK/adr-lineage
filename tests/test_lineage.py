@@ -133,6 +133,10 @@ class LineageTests(unittest.TestCase):
         self.adr(1, "Superseded by [x](//[)")
         self.assertIn("unsafe_target", self.codes())
 
+    def test_comment_marker_inside_fence_cannot_hide_relation(self):
+        self.adr(1, "Accepted\n```html\n<!--\n```\nSupersedes [x](0009-missing.md)")
+        self.assertIn("missing_target", self.codes())
+
     def test_utf8_bom_and_crlf(self):
         (self.root / "0001-decision.md").write_bytes(
             b"\xef\xbb\xbf# Decision\r\n\r\n## Status\r\n\r\nAccepted\r\n"

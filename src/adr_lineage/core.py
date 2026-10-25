@@ -24,6 +24,15 @@ def visible_lines(text):
     fence = None
     comment = False
     for number, line in enumerate(text.splitlines(), 1):
+        raw_marker = re.match(r"^ {0,3}(`{3,}|~{3,})", line)
+        if fence:
+            if raw_marker and raw_marker[1][0] == fence[0] and len(raw_marker[1]) >= len(fence):
+                if not line[raw_marker.end() :].strip():
+                    fence = None
+            continue
+        if not comment and raw_marker:
+            fence = raw_marker[1]
+            continue
         clean = ""
         while line:
             if comment:
@@ -39,11 +48,6 @@ def visible_lines(text):
                 clean += line[:start]
                 line, comment = line[start + 4 :], True
         marker = re.match(r"^ {0,3}(`{3,}|~{3,})", clean)
-        if fence:
-            if marker and marker[1][0] == fence[0] and len(marker[1]) >= len(fence):
-                if not clean[marker.end() :].strip():
-                    fence = None
-            continue
         if marker:
             fence = marker[1]
             continue
