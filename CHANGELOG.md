@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Include runnable examples, contribution/security guidance and CI configuration
+  in source distributions, so release archives preserve the documented workflow.
+
 ## 0.1.1
 
 - Keep HTML comment markers inside fenced examples inert, so they cannot hide

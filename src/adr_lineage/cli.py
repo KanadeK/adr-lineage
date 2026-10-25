@@ -12,7 +12,7 @@ def main(argv=None):
     parser.add_argument(
         "--resolve", type=int, metavar="ID", help="show accepted terminal replacements"
     )
-    parser.add_argument("--version", action="version", version="adr-lineage 0.1.1")
+    parser.add_argument("--version", action="version", version="adr-lineage 0.1.2")
     args = parser.parse_args(argv)
     try:
         report = audit(args.directory)
